@@ -1,12 +1,11 @@
 {
   "name": "com.facticus.modelview",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "displayName": "Model-View",
   "description": "A small model view library for Unity",
   "unity": "2021.1",
   "unityRelease": "",
-  "dependencies": {
-  },
+  "dependencies": {},
   "keywords": [],
   "author": {
     "name": "Facticus",
