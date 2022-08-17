@@ -5,7 +5,19 @@
   "description": "A small model view library for Unity",
   "unity": "2021.1",
   "unityRelease": "",
-  "dependencies": {},
+  "dependencies": {
+    "net.tnrd.serializableinterface": "1.11.1"
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.openupm",
+        "net.tnrd.serializableinterface"
+      ]
+    }
+  ],
   "keywords": [],
   "author": {
     "name": "Facticus",
