@@ -6,7 +6,6 @@
   "unity": "2021.1",
   "unityRelease": "",
   "dependencies": {
-    "net.tnrd.serializableinterface": "1.11.1"
   },
   "keywords": [],
   "author": {
