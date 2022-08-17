@@ -1,6 +1,6 @@
-# {{FRIENDLY_NAME}}
+# Model-View
 
-{{DESCRIPTION}}
+A small model view library for Unity
 
 ## License
 
