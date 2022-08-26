@@ -1,6 +1,6 @@
 {
   "name": "com.facticus.modelview",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "displayName": "Model-View",
   "description": "A small model view library for Unity",
   "unity": "2021.1",
