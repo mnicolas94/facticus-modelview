@@ -19,7 +19,7 @@ namespace ModelView
                 {
                     if (view is Component componentView)
                     {
-                        componentView.transform.SetParent(_viewsContainer);
+                        componentView.transform.SetParent(_viewsContainer, worldPositionStays: false);
                     }
                 }
             }
