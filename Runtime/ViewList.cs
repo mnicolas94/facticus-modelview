@@ -56,9 +56,9 @@
         {
             if (_modelViewDictionary.TryGetValue(model, out var view))
             {
-                if (view is Object viewObject)
+                if (view is Component viewObject)
                 {
-                    Destroy(viewObject);
+                    Destroy(viewObject.gameObject);
                 }
 
                 _modelViewDictionary.Remove(model);
