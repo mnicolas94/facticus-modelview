@@ -65,9 +65,10 @@
             }
         }
 
+        [ContextMenu("asd")]
         public void Clear()
         {
-            var models = _modelViewDictionary.Keys.ToString();
+            var models = new List<object>(_modelViewDictionary.Keys);
             foreach (var model in models)
             {
                 Remove(model);
