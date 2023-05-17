@@ -15,6 +15,8 @@
 
         private Dictionary<object, IView> _modelViewDictionary = new Dictionary<object, IView>();
 
+        public int Count => _modelViewDictionary.Count;
+
         public bool GetViewFromModel<T>(object model, out T view)
         {
             if (_modelViewDictionary.TryGetValue(model, out var iview))
