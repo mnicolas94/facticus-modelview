@@ -4,6 +4,8 @@
 {
     public abstract class ViewBaseBehaviour<TM> : MonoBehaviour, IView
     {
+        private TM _model;
+        
         public abstract bool CanRenderModel(TM model);
         public abstract void Initialize(TM model);
         public abstract void UpdateView(TM model);
@@ -22,6 +24,7 @@
         {
             if (model is TM m)
             {
+                _model = m;
                 Initialize(m);
             }
         }
@@ -30,6 +33,7 @@
         {
             if (model is TM m)
             {
+                _model = m;
                 UpdateView(m);
             }
         }
