@@ -4,7 +4,7 @@
 {
     public abstract class ViewBaseBehaviour<TM> : MonoBehaviour, IView
     {
-        private TM _model;
+        protected TM _model;
         
         public abstract bool CanRenderModel(TM model);
         public abstract void Initialize(TM model);
