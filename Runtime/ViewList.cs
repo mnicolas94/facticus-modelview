@@ -3,6 +3,7 @@
  using System.Linq;
  using TNRD;
  using UnityEngine;
+ using UnityEngine.Pool;
  using Object = UnityEngine.Object;
 
  namespace ModelView
@@ -14,8 +15,63 @@
         [SerializeField] private Transform _viewsContainer;
 
         private Dictionary<object, IView> _modelViewDictionary = new Dictionary<object, IView>();
+        private Dictionary<Object, ObjectPool<Object>> _viewPrefabsPoolsDictionary = new Dictionary<Object, ObjectPool<Object>>();
+        private Dictionary<Object, ObjectPool<Object>> _viewsPoolsDictionary = new Dictionary<Object, ObjectPool<Object>>();
 
         public int Count => _modelViewDictionary.Count;
+
+        private ObjectPool<Object> GetPoolForViewPrefab(Object viewPrefab)
+        {
+            if (!_viewPrefabsPoolsDictionary.ContainsKey(viewPrefab))
+            {
+                var viewsPool = new ObjectPool<Object>(
+                    () => Instantiate(viewPrefab, _viewsContainer, worldPositionStays: false),
+                    view => ((Component)view).gameObject.SetActive(true),
+                    view => ((Component)view).gameObject.SetActive(false)
+                );
+                
+                _viewPrefabsPoolsDictionary.Add(viewPrefab, viewsPool);
+
+                return viewsPool;
+            }
+
+            return _viewPrefabsPoolsDictionary[viewPrefab];
+        }
+
+        private IView InstantiateView(IView viewPrefab)
+        {
+            IView view;
+            if (viewPrefab is Object objectViewPrefab)
+            {
+                var pool = GetPoolForViewPrefab(objectViewPrefab);
+                var objectView = pool.Get();
+
+                if (!_viewsPoolsDictionary.ContainsKey(objectView))  // keep a record of each view's owner pool
+                {
+                    _viewsPoolsDictionary.Add(objectView, pool);
+                }
+                
+                view = objectView as IView;
+            }
+            else
+            {
+                view = viewPrefab;
+            }
+
+            return view;
+        }
+
+        private void ReleaseView(IView view)
+        {
+            if (view is Object objectView)
+            {
+                if (_viewsPoolsDictionary.ContainsKey(objectView))
+                {
+                    var pool = _viewsPoolsDictionary[objectView];
+                    pool.Release(objectView);
+                }
+            }
+        }
 
         public bool GetViewFromModel<T>(object model, out T view)
         {
@@ -39,14 +95,12 @@
         
         public IView Add(object model)
         {
-            var existsView = _viewProvider.Value.TryGetViewForModel(model, out var view);
+            var existsView = _viewProvider.Value.TryGetViewForModel(model, out var viewPrefab);
             if (existsView)
             {
+                var view = InstantiateView(viewPrefab);
+                view.Initialize(model);
                 _modelViewDictionary[model] = view;
-                if (view is Component componentView)
-                {
-                    componentView.transform.SetParent(_viewsContainer, worldPositionStays: false);
-                }
 
                 return view;
             }
@@ -58,16 +112,12 @@
         {
             if (_modelViewDictionary.TryGetValue(model, out var view))
             {
-                if (view is Component viewObject)
-                {
-                    Destroy(viewObject.gameObject);
-                }
-
+                ReleaseView(view);
                 _modelViewDictionary.Remove(model);
             }
         }
 
-        [ContextMenu("asd")]
+        [ContextMenu("Clear")]
         public void Clear()
         {
             var models = new List<object>(_modelViewDictionary.Keys);

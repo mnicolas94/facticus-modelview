@@ -11,7 +11,6 @@
 
         public bool TryGetViewForModel(object model, out IView result, Func<IView, bool> additionalRestrictions = null)
         {
-//            var views = _views.Select(view => ((GameObject)view).GetComponent<IView>()).ToList();
             var views = _views.ConvertAll(view => view.Value);
             return IViewProviderUtils.TryGetViewForModel(views, model, out result, additionalRestrictions);
         }

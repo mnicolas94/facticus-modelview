@@ -18,6 +18,7 @@ namespace ModelView
             }
         }
 
+        [ContextMenu("Populate")]
         public void Populate()
         {
             var models = _modelsLoader.Value.LoadModels();

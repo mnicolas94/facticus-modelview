@@ -18,16 +18,7 @@ namespace ModelView
                 bool meetsAdditionalRestrictions = additionalRestrictions?.Invoke(view) ?? true;
                 if (view.CanRenderModel(model) && meetsAdditionalRestrictions)
                 {
-                    if (view is Object objectView)
-                    {
-                        result = Object.Instantiate(objectView) as IView;
-                    }
-                    else
-                    {
-                        result = view;
-                    }
-                    
-                    result.Initialize(model);
+                    result = view;
                     return true;
                 }
             }
