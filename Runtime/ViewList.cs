@@ -11,8 +11,13 @@
     public class ViewList : MonoBehaviour
     {
         [SerializeField] private SerializableInterface<IViewProvider> _viewProvider;
-
         [SerializeField] private Transform _viewsContainer;
+        
+        [SerializeField] private UnityEvent<object> _added;
+        public UnityEvent<object> Added => _added;
+
+        [SerializeField] private UnityEvent<object> _removed;
+        public UnityEvent<object> Removed => _removed;
 
         private Dictionary<object, IView> _modelViewDictionary = new Dictionary<object, IView>();
         private Dictionary<Object, ObjectPool<Object>> _viewPrefabsPoolsDictionary = new Dictionary<Object, ObjectPool<Object>>();
@@ -101,6 +106,7 @@
                 var view = InstantiateView(viewPrefab);
                 view.Initialize(model);
                 _modelViewDictionary[model] = view;
+                _added.Invoke(model);
 
                 return view;
             }
@@ -114,6 +120,7 @@
             {
                 ReleaseView(view);
                 _modelViewDictionary.Remove(model);
+                _removed.Invoke(model);
             }
         }
 
