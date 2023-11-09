@@ -28,7 +28,7 @@ namespace ModelView
             view.gameObject.SetActive(false);
         }
 
-        private void ReleaseAllViews()
+        public void ReleaseAllViews()
         {
             foreach (var view in _prefabsToViewDictionary.Values)
             {
