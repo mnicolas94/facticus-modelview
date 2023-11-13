@@ -140,9 +140,14 @@
         public void PopulateModels(IList<object> models)
         {
             Clear();
-            foreach (var model in models)
+            for (int i = 0; i < models.Count; i++)
             {
-                Add(model);
+                var model = models[i];
+                var view = Add(model);
+                if (view is Component component)
+                {
+                    component.transform.SetSiblingIndex(i);
+                }
             }
         }
     }

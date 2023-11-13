@@ -10,7 +10,7 @@ namespace ModelView
 
         private IView _currentView;
 
-        private Dictionary<Component, Component> _prefabsToViewDictionary = new Dictionary<Component, Component>();
+        private Dictionary<Component, Component> _prefabsToViewDictionary = new();
 
         private Component GetViewFromPrefab(Component viewPrefab)
         {
