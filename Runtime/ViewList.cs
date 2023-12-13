@@ -79,6 +79,11 @@
             }
         }
 
+        public bool IsModelInList(object model)
+        {
+            return _modelViewDictionary.ContainsKey(model);
+        }
+
         public bool GetViewFromModel<T>(object model, out T view)
         {
             if (_modelViewDictionary.TryGetValue(model, out var iview))
