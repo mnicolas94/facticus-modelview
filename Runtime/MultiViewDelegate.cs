@@ -11,6 +11,8 @@ namespace ModelView
         private IView _currentView;
 
         private Dictionary<Component, Component> _prefabsToViewDictionary = new();
+        
+        public IView CurrentView => _currentView;
 
         private Component GetViewFromPrefab(Component viewPrefab)
         {
@@ -26,6 +28,10 @@ namespace ModelView
         private void ReleaseView(Component view)
         {
             view.gameObject.SetActive(false);
+            if (view == _currentView)
+            {
+                _currentView = null;
+            }
         }
 
         public void ReleaseAllViews()
@@ -54,7 +60,8 @@ namespace ModelView
             {
                 var view = GetViewFromPrefab(objectPrefab);
                 view.gameObject.SetActive(true);
-                ((IView)view).Initialize(model);
+                _currentView = (IView) view;
+                _currentView.Initialize(model);
             }
         }
     }
