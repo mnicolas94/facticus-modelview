@@ -145,6 +145,12 @@
         public void PopulateModels(IList<object> models)
         {
             Clear();
+            PopulateModels(models);
+        }
+        
+        public void PopulateModels<T>(IList<T> models)
+        {
+            Clear();
             for (int i = 0; i < models.Count; i++)
             {
                 var model = models[i];
