@@ -145,7 +145,7 @@
         public void PopulateModels(IList<object> models)
         {
             Clear();
-            PopulateModels(models);
+            PopulateModels<object>(models);
         }
         
         public void PopulateModels<T>(IList<T> models)
