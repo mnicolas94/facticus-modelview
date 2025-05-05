@@ -7,6 +7,10 @@ namespace ModelView
     public class GenericView : MonoBehaviour, IView
     {
         [SerializeField] private SerializableInterface<IViewProvider> _viewProvider;
+        public IViewProvider ViewProvider
+        {
+            set => _viewProvider.Value = value;
+        }
 
         private IView _currentView;
 
