@@ -5,7 +5,8 @@
 
  namespace ModelView
 {
-    public class ViewProviderPrefab : ScriptableObject, IViewProvider
+    [CreateAssetMenu(fileName = "ViewProvider", menuName = "Facticus/ModelView/ViewProvider")]
+    public class ViewProviderSO : ScriptableObject, IViewProvider
     {
         [SerializeField] private List<SerializableInterface<IView>> _views;
 
