@@ -4,13 +4,13 @@ using UnityEngine;
 
 namespace ModelView
 {
-    public class MultiViewDelegate : MonoBehaviour, IView
+    public class GenericView : MonoBehaviour, IView
     {
         [SerializeField] private SerializableInterface<IViewProvider> _viewProvider;
 
         private IView _currentView;
 
-        private Dictionary<Component, Component> _prefabsToViewDictionary = new();
+        private readonly Dictionary<Component, Component> _prefabsToViewDictionary = new();
         
         public IView CurrentView => _currentView;
 

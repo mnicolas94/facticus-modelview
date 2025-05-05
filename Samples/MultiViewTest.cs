@@ -4,7 +4,7 @@ namespace ModelView.Samples
 {
     public class MultiViewTest : MonoBehaviour
     {
-        [SerializeField] private MultiViewDelegate _view;
+        [SerializeField] private GenericView _view;
         [SerializeField] private ScriptableObject _model;
 
         [ContextMenu("Populate")]
