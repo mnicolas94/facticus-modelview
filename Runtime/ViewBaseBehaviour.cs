@@ -25,8 +25,8 @@
         {
             if (model is TM m)
             {
-                _model = m;
                 Initialize(m);
+                _model = m;
             }
         }
 
@@ -34,8 +34,8 @@
         {
             if (model is TM m)
             {
-                _model = m;
                 UpdateView(m);
+                _model = m;
             }
         }
     }
